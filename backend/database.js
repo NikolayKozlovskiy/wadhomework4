@@ -1,4 +1,6 @@
 
+// if you do not want to show your credentials use env.js 
+// and put there PASSWORD and DATABASE 
 
 require('./env')
 const Pool = require('pg').Pool;
@@ -7,7 +9,7 @@ const Pool = require('pg').Pool;
 const pool = new Pool({
     user: "postgres",
     password: PASSWORD, // Enter your password here
-    database: DATABASE, //Try to use the same name for your database
+    database: DATABASE, // Can change just manually
     host: "localhost",
     port: "5432"
 });
