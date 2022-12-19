@@ -5,10 +5,7 @@
    </div>
 
     <div class="post" v-for="post in posts" :key="post.post_id"> 
-      
-      <div v-if = False>
-        <h1>{{photo}}</h1>
-      </div>
+
        <div class="post-header">
           <div class="post-date">{{post.date}}</div>
         </div>

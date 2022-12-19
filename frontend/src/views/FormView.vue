@@ -1,7 +1,7 @@
 <template>
 <div id=signuppage>
 
-  <form @submit.prevent ="validateForm">
+  <div class="form">
     <div class="form_row_1">
       <label for="email">Email</label>
       <input type="email" placeholder="Email" required v-model="email">
@@ -17,7 +17,7 @@
     <div class="submit">
       <button>Signup </button>
     </div>
-  </form>
+  </div>
   <!-- <footer-component/> -->
 
 </div>
@@ -77,7 +77,7 @@ data: function() {
   margin-top: 10px;
 }
 
-form {
+.form {
   max-width: 420px;
   hight: 30%;
   margin: 10px auto;
