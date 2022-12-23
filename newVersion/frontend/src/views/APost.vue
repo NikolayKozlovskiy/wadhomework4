@@ -78,6 +78,8 @@ export default {
     // Route parameters (this.$route.params.id) are named URL segments that are used to capture the values specified at their 
     // position in the URL. The captured values are populated in the req.params object, with the name 
     // of the route parameter specified in the path as their respective keys
+    console.log("Router parameters")
+    console.log(this.$route.params.id)
     this.fetchAPost(this.$route.params.id);
   },
 };

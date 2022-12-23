@@ -9,14 +9,15 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:8081', credentials: true }));
+// POMENYI NA SVOI PORT !!!!
+app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
 // We need to include "credentials: true" to allow cookies to be represented  
 // Also "credentials: 'include'" need to be added in Fetch API in the Vue.js App
 
 app.use(express.json()); // Parses incoming requests with JSON payloads and is based on body-parser.
 app.use(cookieParser()); // Parse Cookie header and populate req.cookies with an object keyed by the cookie names.
 
-const secret = "gdgdhdbcb770785rgdzqws"; // use a stronger secret
+const secret = "gdgdhdbcb7707ergggerger5rgdzqws"; // use a stronger secret
 const maxAge = 60 * 60; //unlike cookies, the expiresIn in jwt token is calculated by seconds not milliseconds
 
 const generateJWT = (id) => {
@@ -207,5 +208,28 @@ app.delete('/api/posts/:id', async(req, res) => {
         res.json(deletepost);
     } catch (err) {
         console.error(err.message);
+    }
+});
+
+// DELETE POSTS
+// app.delete('/api/posts', (req, res) => {
+//     Item.deleteMany({}, (error) => {
+//       if (error) {
+//         console.error(error)
+//         res.sendStatus(500)
+//       } else {
+//         res.sendStatus(204)
+//       }
+//     })
+//   });
+  app.delete('/api/posts', async(req, res)=> {
+    try {
+        console.log("delete posts request has arrived");
+        await pool.query(
+            "TRUNCATE TABLE posttable"
+        )
+        res.json({ message: 'All records deleted successfully' });
+    } catch(err) {
+        console.error(err.message)
     }
 });

@@ -12,7 +12,7 @@
     </div>
     <div class="container">
         <button @click='this.$router.push("/api/addpost")' class="center">Add post</button>
-        <button class="center">Delete</button>
+        <button class="center" @click=deleteAll>Delete</button>
     </div>
   </div>
 </template>
@@ -22,8 +22,8 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios';
 import auth from "../auth";
-
 export default {
   name: "HomeView",
   components: {
@@ -35,6 +35,15 @@ export default {
     }
   },
   methods: {
+    async deleteAll() {
+      try {
+        await axios.delete('http://localhost:3000/api/posts');
+        this.posts = []
+        // Perform any necessary actions after the delete operation is successful
+      } catch (error) {
+        // Handle errors
+      }
+    },
     Logout() {
       fetch("http://localhost:3000/auth/logout", {
           credentials: 'include', //  Don't forget to specify this if you need cookies
