@@ -1,20 +1,26 @@
 <template>
-  <div class="A Post">
-    <div id="form">
-      <h3>A Post</h3>
-      <label for="title">Title: </label>
-      <input name="type" type="text" id="title" required v-model="post.title" />
-      <label for="body">Body: </label>
-      <input name="body" type="text" id="body" required v-model="post.body" />
-      <label for="url">Url: </label>
-      <input name="url" type="text" id="url" required v-model="post.urllink" />
-    </div>
-    <div>
+  <div class=editform>
+    <div class="form">
+      <div class="container">
+          A Post
+      </div>
+
+      <div class="form_row_2">
+        <label for="body">Body: </label>
+        <input name="body" type="text" id="body" required v-model="post.body" />
+      </div>
+      <div class="container">
       <button @click="updatePost" class="updatePost">Update Post</button>
       <button @click="deletePost" class="deletePost">Delete Post</button>
+      </div>
     </div>
+
   </div>
-</template>
+  </template>
+
+
+
+
 
 
 <script>
@@ -33,7 +39,7 @@ export default {
   methods: {
     fetchAPost(id) {
       // fetch one post with the specied id (id)
-      fetch('http://localhost:3000/api/posts/${id}')
+      fetch(`http://localhost:3000/api/posts/${id}`)
         .then((response) => response.json())
         .then((data) => (this.post = data))
         .catch((err) => console.log(err.message));
@@ -78,50 +84,100 @@ export default {
     // Route parameters (this.$route.params.id) are named URL segments that are used to capture the values specified at their 
     // position in the URL. The captured values are populated in the req.params object, with the name 
     // of the route parameter specified in the path as their respective keys
-    console.log("Router parameters")
-    console.log(this.$route.params.id)
     this.fetchAPost(this.$route.params.id);
   },
 };
 </script>
 
 <style scoped>
-#form {
-  max-width: 420px;
-  margin: 30px auto;
-  background: rgb(167, 154, 154);
+
+* {
+  box-sizing: border-box;
+}
+
+.editform{
+  display:flex;
+  flex-direction: column;
+  height: 58vh;
+  margin-top: 30vh;
+  padding-top: 10px;
+  padding: 8px;
+  max-width: 720px;
+}
+
+.form {
+  max-width: 720px;
+  hight: 30%;
+  margin: 10px auto;
+  background:  rgb(208,240,192);
+  border-radius: 20px;
   text-align: left;
   padding: 40px;
   border-radius: 10px;
 }
-h3 {
-  text-align: center;
-  color: rgb(8, 110, 110);
+
+.form_row_1{
+  display: flex;
+  width:100%;
+  height: 30%;
 }
+
+.form_row_2{
+  display: flex;
+  width:100%;
+  height: 50%;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.form_row_2{
+  margin-top: 10px;
+}
+
+
 label {
-  color: rgb(8, 110, 110);
-  display: inline-block;
-  margin: 25px 0 15px;
-  font-size: 0.8em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
+    flex: 1 1 auto;
+    color: black;
+    display: block;
+    text-align: center;
+    padding-top: 7px;
 }
-input {
-  display: block;
-  padding: 10px 6px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid white;
-  color: blue;
+
+input{
+flex: 0 0 auto;
+display: block;
+padding: 10px 6px;
+width: 70%;
+text-align: center;
+box-sizing: border-box;
+border-radius: 20px;
+border: none;
+border-bottom: 1px solid white;
+color: blue;
 }
-button {
-  background: rgb(8, 110, 110);
-  border: 0;
-  padding: 10px 20px;
-  margin-top: 20px;
-  color: white;
-  border-radius: 20px;
+
+button{
+background:  rgb(137, 207, 240);
+border: 0;
+padding: 5px 20px;
+margin-top:  15px;
+color: black;
+border-radius: 20px;
 }
+h2, .submit{
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.error{
+    color: red;
+    font-size: 0.7em;
+    margin-top:  10px;
+    text-align: center;
+}
+
 </style>
+

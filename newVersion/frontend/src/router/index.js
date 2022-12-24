@@ -1,15 +1,17 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import { createRouter, createWebHistory } from 'vue-router'
+import AllPosts from "../views/AllPosts.vue";
+import APost from "../views/APost.vue";
+import AddPost from "../views/AddPost.vue";
+
 import SignUp from "../views/SignUp.vue";
 import LogIn from "../views/LogIn.vue";
 import auth from "../auth";
-import AddPost from "../views/AddPost.vue";
-import APost from "../views/APost.vue";
+
 
 const routes = [{
-        path: "/",
-        name: "home",
-        component: HomeView,
+        path: '/',
+        name: 'home',
+        component: AllPosts,
         beforeEnter: async(to, from, next) => {
             let authResult = await auth.authenticated();
             if (!authResult) {
@@ -30,6 +32,11 @@ const routes = [{
         component: LogIn,
     },
     {
+        path: "/api/allposts",
+        name: "AllPosts",
+        component: AllPosts,
+    },
+    {
         path: "/api/apost/:id",
         name: "APost",
         component: APost,
@@ -48,11 +55,18 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ "../views/AboutView.vue"),
     },
-];
+    { //will route to AllPosts view if none of the previous routes apply
+        path: "/:catchAll(.*)",
+        name: "AllPosts",
+        component: AllPosts,
+    }
+]
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes,
-});
+    history: createWebHistory(process.env.BASE_URL),
+    routes
+})
 
-export default router;
+
+
+export default router

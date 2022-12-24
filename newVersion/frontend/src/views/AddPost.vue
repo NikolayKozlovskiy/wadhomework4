@@ -1,15 +1,22 @@
 <template>
-  <div class="form">
-    <h3>Add a Post</h3>
-    <label for="title">Title: </label>
-    <input name="title" type="text" id="title" required v-model="post.title" />
-    <label for="body">Body: </label>
-    <input name="body" type="text" id="body" required v-model="post.body" />
-    <label for="urllink">Url: </label>
-    <input name="urllink"  type="text" id="urllink" required v-model="post.urllink"/>
-    <button @click="addPost" class="addPost">Add Post</button>
+  <div class="signuppage">
+    <div class="form">
+      <div class="container">
+          Add post
+      </div>
+      <div class="form_row_2">
+        <label for="body">Body: </label>
+        <input name="body" type="text" id="body" required v-model="post.body" />
+      </div>
+      <div class="container">
+      <button @click="addPost" class="addPost">Add Post</button>
+      </div>
+    </div>
+    <!-- <footer-component/> -->
+
   </div>
-</template>
+  </template>
+
 
 <script>
 export default {
@@ -17,18 +24,14 @@ export default {
   data() {
     return {
       post: {
-        title: "",
         body: "",
-        urllink: "",
       },
     };
   },
   methods: {
     addPost() {
       var data = {
-        title: this.post.title,
         body: this.post.body,
-        urllink: this.post.urllink,
       };
       // using Fetch - post method - send an HTTP post request to the specified URI with the defined body
       fetch("http://localhost:3000/api/posts", {
@@ -38,11 +41,10 @@ export default {
         },
         body: JSON.stringify(data),
       })
-      .then((response) => response.json())
-      .then((data) => {
-      console.log(data);
+      .then((response) => {
+        console.log(response.data);
         // redirect to /allposts view
-        this.$router.push("/");
+        this.$router.push("/api/allposts");
       })
       .catch((e) => {
         console.log(e);
@@ -54,44 +56,91 @@ export default {
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .form {
-  max-width: 420px;
-  margin: 30px auto;
-  background: rgb(167, 154, 154);
+  max-width: 620px;
+  hight: 30%;
+  margin: 1px auto;
+  background:  rgb(208,240,192);
+  border-radius: 20px;
   text-align: left;
   padding: 40px;
   border-radius: 10px;
 }
-h3 {
-  text-align: center;
-  color: rgb(8, 110, 110);
+
+.signuppage {
+  display:flex;
+  flex-direction: column;
+  height: 58vh;
+  margin-top: 30vh;
+  padding-top: 10px;
+  padding: 8px;
 }
-label {
-  color: rgb(8, 110, 110);
-  display: inline-block;
-  margin: 25px 0 15px;
-  font-size: 0.8em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
+
+.form_row_2{
+  display: flex;
+  width:100%;
+  height: 30%;
+  margin-top: 10px;
 }
-input {
-  display: block;
-  padding: 10px 6px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid white;
-  color: blue;
-}
+
 button {
-  background: rgb(8, 110, 110);
+  background: rgb(32, 60, 160);
   border: 0;
   padding: 10px 20px;
-  margin-top: 20px;
+  margin: 20px 20px 20px 20px;
   color: white;
   border-radius: 20px;
   align-items: center;
   text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+label {
+    flex: 1 1 auto;
+    color: black;
+    display: block;
+    text-align: center;
+    padding-top: 7px;
+}
+
+input{
+flex: 0 0 auto;
+display: block;
+padding: 10px 6px;
+width: 60%;
+text-align: center;
+box-sizing: border-box;
+border-radius: 20px;
+border: none;
+border-bottom: 1px solid white;
+color: blue;
+}
+
+button{
+background:  rgb(137, 207, 240);
+border: 0;
+padding: 5px 20px;
+margin-top:  15px;
+color: black;
+border-radius: 20px;
+}
+h2, .submit{
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.error{
+    color: red;
+    font-size: 0.7em;
+    margin-top:  10px;
+    text-align: center;
 }
 </style>
